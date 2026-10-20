@@ -1,0 +1,36 @@
+#include "decoder.h"
+#include <stdio.h>
+
+
+int decoder_init(DecoderCtx *ctx, const AVCodec *pCodec, AVCodecParameters *pCodecParams) {
+    ctx->pCodecCtx = avcodec_alloc_context3(pCodec);
+    if (ctx->pCodecCtx == NULL) {
+        return -1; // Failed to allocate the codec context
+    }
+
+    // Copy the codec parameters from the stream to the codec context
+    if (avcodec_parameters_to_context(ctx->pCodecCtx, pCodecParams) < 0) {
+        return -1; // Failed to copy the codec parameters
+    }
+
+    // Open the decoder
+    if (avcodec_open2(ctx->pCodecCtx, pCodec, NULL) < 0) {
+        return -1; // Failed to open the decoder
+    }
+
+    ctx->pFrame = av_frame_alloc();
+    if (ctx->pFrame == NULL) {
+        return -1; // Failed to allocate the frame
+    }
+    
+    return 0;
+}
+
+void decoder_close(DecoderCtx *ctx) {
+    if (ctx->pFrame == NULL) {
+        avcodec_free_context(&ctx->pCodecCtx); 
+    }
+    if (ctx->pFrame) {
+        av_frame_free(&ctx->pFrame); 
+    }
+}

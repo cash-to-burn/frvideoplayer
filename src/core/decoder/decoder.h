@@ -1,4 +1,4 @@
-#infdef DECODER_H
+#ifndef DECODER_H
 #define DECODER_H
 #include <libavcodec/avcodec.h>
 
@@ -7,7 +7,7 @@ typedef struct {
     AVFrame *pFrame;
 } DecoderCtx;
 
-int decoder_init(DecoderCtx *ctx, const AVcodec *pCodec, AVCodecParameters *pCodecParams);
+int decoder_init(DecoderCtx *ctx, const AVCodec *pCodec, AVCodecParameters *pCodecParams);
 void decoder_close(DecoderCtx *ctx);
 
 #endif

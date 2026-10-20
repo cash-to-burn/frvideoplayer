@@ -1,6 +1,8 @@
 #ifndef DEMUXER_H
 #define DEMUXER_H
+
 #include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
 
 typedef struct {
     AVFormatContext *pFormatCtx;

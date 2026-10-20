@@ -28,12 +28,14 @@ int demuxer_init(DemuxerCtx *ctx, const char *filename) {
     if (ctx->videoStream == -1) {
         avformat_close_input(&ctx->pFormatCtx); 
         return -1; // Video stream failed to be found
-    }
+    } 
+
+    return 0;
 
 }
 
 void demuxer_close(DemuxerCtx *ctx) {
-    if (ctx &&; ctx->pFormatCtx) {
+    if (ctx && ctx->pFormatCtx) {
         avformat_close_input(&ctx->pFormatCtx); 
     }
 
