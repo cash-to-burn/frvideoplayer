@@ -8,6 +8,7 @@ typedef struct {
 } DecoderCtx;
 
 int decoder_init(DecoderCtx *ctx, const AVCodec *pCodec, AVCodecParameters *pCodecParams);
+int decoder_start(DecoderCtx *ctx, AVPacket *pPacket);
 void decoder_close(DecoderCtx *ctx);
 
 #endif

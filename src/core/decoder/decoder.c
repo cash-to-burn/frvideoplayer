@@ -26,6 +26,32 @@ int decoder_init(DecoderCtx *ctx, const AVCodec *pCodec, AVCodecParameters *pCod
     return 0;
 }
 
+
+int decoder_start(DecoderCtx *ctx, AVPacket *pPacket) {
+    int ret = avcodec_send_packet(ctx->pCodecCtx, pPacket);
+    if (ret < 0) {
+        return -1; // Failed to send the packet to the decoder
+    }
+
+    while (ret >= 0) {
+        ret = avcodec_receive_frame(ctx->pCodecCtx, ctx->pFrame);
+        if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
+            return 0; // No more frames to decode
+        } else if (ret < 0) {
+            return -1; // Failed to decode the frame
+        }
+
+        // Action inside loop: Must execute for every frame received before the loop cycles
+        printf("Decoded frame at %ld\n", ctx->pFrame->pts);
+        av_frame_unref(ctx->pFrame);
+    }
+
+    return 0;
+}
+
+
+
+
 void decoder_close(DecoderCtx *ctx) {
     if (ctx->pFrame == NULL) {
         avcodec_free_context(&ctx->pCodecCtx); 
