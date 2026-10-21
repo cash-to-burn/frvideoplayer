@@ -37,7 +37,7 @@ int audioOut_init(AudioOutCtx *ctx, int sampleRate, int channels) {
     }
 
     // Stage four: Pause the audio device to start listening in for sound
-    SQL_PauseAudioDevice(ctx->AudioDevice, 0);
+    SDL_PauseAudioDevice(ctx->AudioDevice, 0);
 
     return 0;
 
@@ -47,7 +47,7 @@ int audioOut_init(AudioOutCtx *ctx, int sampleRate, int channels) {
 
 
 int audioOut_start(AudioOutCtx *ctx, uint8_t *data, int SizeOfData) {
-    if (ctx->AudioDevice == 0 || date == NULL) {
+    if (ctx->AudioDevice == 0 || data == NULL) {
         return -1; // No audio device to play audio
     }
     

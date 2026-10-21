@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "core/demuxer/demuxer.h"
-#include "core/decoder/decoder.h"
-#include "core/scaler/scaler.h"
-#include "core/videoOut/videoOut.h"
+#include "core/video/demuxer/demuxer.h"
+#include "core/video/decoder/decoder.h"
+#include "core/video/scaler/scaler.h"
+#include "core/video/videoOut/videoOut.h"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {

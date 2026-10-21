@@ -12,7 +12,7 @@ typedef struct {
     int videoStream;
 
     const AVCodec *pAudioCodec;
-    int audioStream
+    int audioStream;
 
 } DemuxerCtx;
 
