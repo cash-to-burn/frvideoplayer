@@ -36,17 +36,15 @@ int decoder_start(DecoderCtx *ctx, AVPacket *pPacket) {
     while (ret >= 0) {
         ret = avcodec_receive_frame(ctx->pCodecCtx, ctx->pFrame);
         if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
-            return 0; // No more frames to decode
+            break; // No more frames inside this packet
         } else if (ret < 0) {
             return -1; // Failed to decode the frame
         }
 
-        // Action inside loop: Must execute for every frame received before the loop cycles
-        printf("Decoded frame at %ld\n", ctx->pFrame->pts);
-        av_frame_unref(ctx->pFrame);
+        return 1; // Signal that a valid frame is ready in ctx->pFrame
     }
 
-    return 0;
+    return 0; // No frames decoded, but no error happened
 }
 
 

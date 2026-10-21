@@ -1,8 +1,9 @@
 #ifndef SCALER_H
 #define SCALER_H
+
 #include <libavformat/avformat.h>
 #include <libavutil/pixfmt.h>
-
+#include <SDL2/SDL.h>
 
 typedef struct {
     struct SwsContext *pSwsCtx; 
@@ -11,6 +12,7 @@ typedef struct {
     enum AVPixelFormat dstPixFormat;
     int dstWidth;
     int dstHeight;
+
 } ScalerCtx;
 
 
