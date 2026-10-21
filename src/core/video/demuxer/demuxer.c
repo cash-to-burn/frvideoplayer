@@ -9,6 +9,9 @@ int demuxer_init(DemuxerCtx *ctx, const char *filename) {
     ctx->pCodec = NULL;
     ctx->videoStream = -1;
 
+    ctx->pAudioCodec = NULL;
+    ctx->audioStream = -1;
+
     // Input File Opening
     if (avformat_open_input(&ctx->pFormatCtx, filename, NULL, NULL) != 0) { 
         return -1; 
@@ -31,6 +34,8 @@ int demuxer_init(DemuxerCtx *ctx, const char *filename) {
     } 
 
     return 0;
+
+    ctx->audioStream = av_find_best_stream(ctx->pFormatCtx, AVMEDIA_TYPE_AUDIO, -1, -1, &ctx->pAudioCodec, 0);
 
 }
 

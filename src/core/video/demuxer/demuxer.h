@@ -7,8 +7,13 @@
 typedef struct {
     AVFormatContext *pFormatCtx;
     AVCodecContext *pCodecCtx;
+
     const AVCodec *pCodec;
     int videoStream;
+
+    const AVCodec *pAudioCodec;
+    int audioStream
+
 } DemuxerCtx;
 
 
